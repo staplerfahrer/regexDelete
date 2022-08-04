@@ -12,4 +12,4 @@ Usage:
 
 On the Windows command line, double-escape your backslashes before the trailing " like so:
 
-    regexDelete -d "(\\temp\\|temporary|temp-)" "\.pma$" "swreporter" "\\wer\\\\" "cache2?\\\\" "service worker" "itunes media" "Downloads" "CrashDumps"
+	regexDelete -d "(\\temp\\|temporary|temp-)" "\.pma$" "swreporter" "\\wer\\\\" "cache2?\\\\" "service worker" "itunes media" "Downloads" "CrashDumps"
