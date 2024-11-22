@@ -1,4 +1,4 @@
-import glob, re, shutil, sys, os, os.path, stat
+import re, shutil, sys, os, os.path, stat
 
 def main(testing, arguments):
 	print('Arguments:')
@@ -17,12 +17,13 @@ def main(testing, arguments):
 
 	currentWorkDir = os.getcwd()
 
-	allFiles = \
-		glob.glob("**/*", recursive=True) \
-		+ glob.glob(".**/*", recursive=True) \
-		+ glob.glob("**/.*", recursive=True)
+	#allFiles = getAllFiles()
+	allFiles = list()
+	errors = list()
+	scandirRec(currentWorkDir, allFiles, errors)
+	print(errors)
 
-	print(f'{currentWorkDir} contains {len(allFiles)} files and/or directories.')
+	print(f'{currentWorkDir} contains {len(allFiles)} files.')
 
 	matchingPaths = [path 
 		  for path in allFiles 
@@ -55,6 +56,31 @@ def main(testing, arguments):
 			print(e)
 	
 	print('Done.')
+
+# def getAllFiles(targetPath):
+# 	start = time.time()
+# 	cwd = os.getcwd()
+# 	os.chdir(targetPath)
+# 	allFiles = \
+# 		glob.glob("**/*", recursive=True) \
+# 		+ glob.glob(".**/*", recursive=True) \
+# 		+ glob.glob("**/.*", recursive=True)
+# 	elapsed = time.time() - start
+# 	print(f'It took {elapsed} s.')
+# 	os.chdir(cwd)
+# 	return allFiles
+
+def scandirRec(targetPath, output, errors):
+	if targetPath[-1:] != '\\':
+		targetPath += '\\'
+	try:
+		entries = list(os.scandir(targetPath))
+	except Exception as e:
+		errors.append(e)
+		entries = list()
+	subDirs = [e.name for e in entries if e.is_dir()]
+	[scandirRec(targetPath+d, output, errors) for d in subDirs]
+	output += [targetPath+e.name for e in entries if e.is_file()]
 
 def remove_readonly(func, path, excinfo):
 	# from https://stackoverflow.com/questions
