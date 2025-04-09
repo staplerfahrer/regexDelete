@@ -6,9 +6,9 @@ def main(testing, arguments):
 		print(a)
 
 	if not testing:
-		print('Delete mode.\n')
+		print('Delete mode.')
 	else:
-		print('Test mode.\n')
+		print('Test mode.')
 
 	patterns = [
 		re.compile(argument, flags=re.IGNORECASE) 
@@ -21,7 +21,7 @@ def main(testing, arguments):
 	allFiles = list()
 	errors = list()
 	scandirRec(currentWorkDir, allFiles, errors)
-	print(errors)
+	print(f'Errors: {errors}')
 
 	print(f'{currentWorkDir} contains {len(allFiles)} files.')
 
@@ -31,7 +31,7 @@ def main(testing, arguments):
 
 	for path in matchingPaths:
 		try:
-			path = f'\\\\?\\{currentWorkDir}\\{path}'
+			#path = f'\\\\?\\{currentWorkDir}\\{path}'
 			print(path.encode('utf-8'), end=' ')
 		except Exception as e:
 			print(e)
@@ -90,7 +90,7 @@ def remove_readonly(func, path, excinfo):
 
 if __name__ == '__main__':
 	print('Regex Delete by Jacob Bruinsma, 2022\n'
-			'Delete files and directories matching a Python regular expression.\n')
+			'Delete files and directories matching a Python regular expression.')
 	if len(sys.argv) < 3:
 		print('Usage:\n'
 				'regexDelete -t "test1.*\.jpg$" "\\\\TEMP"\n'
