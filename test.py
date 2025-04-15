@@ -3,14 +3,16 @@ import os, shutil, regexDelete, time
 # shutil.rmtree('testTemp')
 # shutil.copytree('testSource', 'testTemp')
 # os.chdir('testTemp')
-# regexDelete.main(testing=False, arguments=['(temp\\\\|temporary|temp-)', '\\\\dir\\\\', 'cache2?\\\\'])
-
-out = list()
-errors = list()
 
 start = time.time()
-regexDelete.scandirRec('c:\\', out, errors)
+
+regexDelete.main(testMode=True, workingDir='c:\\temp', arguments=['ROOT'])
+
+# out = list()
+# errors = list()
+# regexDelete.scandirRec('c:\\', out, errors)
+# print(len(out))
+# print(len(errors))
+
 elapsed = time.time() - start
-print(f'took: {elapsed} s')
-print(len(out))
-print(len(errors))
+print(f'took: {elapsed:.3f} s')
