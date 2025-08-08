@@ -1,4 +1,4 @@
-import re, shutil, sys, os, os.path, stat
+import re, shutil, sys, os, os.path, stat, time
 
 from typing import List
 
@@ -21,8 +21,10 @@ def main(testMode, workingDir, arguments):
 
 	allObjects        = list()
 	enumerationErrors = list()
+	start             = time.time()
 	scandirRec(workingDir, allObjects, enumerationErrors)
 
+	print(f'Scanning took {time.time()-start} seconds.')
 	print(f'{workingDir} contains {len(allObjects)} file system objects.')
 
 	matchingObjects = [
@@ -32,7 +34,7 @@ def main(testMode, workingDir, arguments):
 	deleteCount = 0
 	deletionErrors = list()
 	# todo: count errors and exceptions
-	# todo: os.scandir provides DirEntry objects with is_dir() and is_file() functions
+	
 	for fsObj in matchingObjects:
 		try:
 			print(fsObj.path, end=' ')
@@ -107,8 +109,8 @@ if __name__ == '__main__':
 				'            regexes are case-insensitive\n'
 				'            escape backslashes like below\n'
 				'Examples:\n'
-				'    regexDelete -t "c:\\temp" "test1.*\.jpg$" "\\\\temp" "\\\\cache\\\\\\\\"\n'
-				'    regexDelete -d "c:\\temp" "pattern1.*\.jpg$" "pattern2.*\.bmp$"')
+				'    regexDelete -t "c:\\temp\\\\" "test1.*\.jpg$" "\\\\temp" "\\\\cache\\\\\\\\"\n'
+				'    regexDelete -d "c:\\temp\\\\" "pattern1.*\.jpg$" "pattern2.*\.bmp$"')
 		sys.exit()
 
 	testMode   = not (sys.argv[1] == '-d')
