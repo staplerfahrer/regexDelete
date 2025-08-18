@@ -98,7 +98,7 @@ def remove_readonly(func, path, excinfo):
     func(path)
 
 if __name__ == '__main__':
-	print('Regex Delete by Jacob Bruinsma, 2022-2025, v1.3\n'
+	print('Regex Delete by Jacob Bruinsma, 2022-2025, v1.3.1\n'
 			'Delete files and directories matching a Python regular expression.')
 
 	if len(sys.argv) < 4:
