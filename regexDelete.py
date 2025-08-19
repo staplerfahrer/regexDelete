@@ -81,7 +81,7 @@ def scandirRec(targetPath: str, output: List[os.DirEntry], errors: list):
 	try:
 		entries = list(os.scandir(targetPath))
 	except Exception as e:
-		errors.append(e)
+		errors.append((targetPath, e))
 		entries = list()
 
 	subDirs = [e.name for e in entries if e.is_dir()]
@@ -98,7 +98,7 @@ def remove_readonly(func, path, excinfo):
     func(path)
 
 if __name__ == '__main__':
-	print('Regex Delete by Jacob Bruinsma, 2022-2025, v1.3.1\n'
+	print('Regex Delete by Jacob Bruinsma, 2022-2025, v1.3.2\n'
 			'Delete files and directories matching a Python regular expression.')
 
 	if len(sys.argv) < 4:
